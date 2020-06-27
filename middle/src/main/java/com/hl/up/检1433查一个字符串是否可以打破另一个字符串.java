@@ -1,3 +1,7 @@
+package com.hl.up;
+
+import java.util.Arrays;
+
 /**
  * @author huli04
  * @date 2020-06-27 19:59
@@ -37,44 +41,49 @@
  * 所有字符串都只包含小写英文字母。
  * ----------------------
  */
-public class 检1433查一个字符串是否可以打破另一个字符串_解法2 {
+public class 检1433查一个字符串是否可以打破另一个字符串 {
 
     static class Solution {
         public boolean checkIfCanBreak(String s1, String s2) {
-            int[] cnt1 = new int[26];
-            int[] cnt2 = new int[26];
-            for (char c : s1.toCharArray()) {
-                cnt1[c - 'a']++;
-            }
-            for (char c : s2.toCharArray()) {
-                cnt2[c - 'a']++;
-            }
-            boolean aCrackB = true;
-            boolean bCrackA = true;
-            if (cnt2[25] > cnt1[25]) {
-                aCrackB = false;
-            }
-            if (cnt1[25] > cnt2[25]) {
-                bCrackA = false;
-            }
-            for (int i = 26 - 2; i >= 0; i--) {
-                cnt1[i] += cnt1[i + 1];
-                cnt2[i] += cnt2[i + 1];
-                if (cnt2[i] > cnt1[i]) {
-                    aCrackB = false;
+            char[] chars = s1.toCharArray();
+            char[] chars1 = s2.toCharArray();
+
+            Arrays.sort(chars);
+            Arrays.sort(chars1);
+
+            //两个标签,表示str1元素减去str2元素的结果是正是负,如果即是正又是负就false
+            boolean flag1 = false;
+            boolean flag2 = false;
+
+            for (int i = 0; i < chars.length; i++) {
+                if (chars[i] - chars1[i] > 0) {
+                    flag1 = true;
+                } else if (chars[i] - chars1[i] < 0) {
+                    flag2 = true;
                 }
-                if (cnt1[i] > cnt2[i]) {
-                    bCrackA = false;
+                if (flag1 && flag2) {
+                    return false;
                 }
             }
-            return aCrackB || bCrackA;
+            return true;
         }
     }
 
     public static void main(String[] args) {
 
-        //第二种解法,空间归类法,也是常规空间换时间的做法
-        //使用一个26长度的数组,记录每个字母出现的次数
+        //题目整理:
+        // s1和s2主和客的角色不固定;
+
+        //思路:
+        //1. 排序
+        //2. 取巧:哪些情况是可以更快给出结果的;
+        //3. 排序;字符串转数字
+
+
+        //第一次运行失败:
+       /* "yopumzgd"==dgmopuyz
+        "pamntyya"* ==aamnptyy
+        */
         Solution solution = new Solution();
         System.out.println(solution.checkIfCanBreak("abc", "xya"));
 

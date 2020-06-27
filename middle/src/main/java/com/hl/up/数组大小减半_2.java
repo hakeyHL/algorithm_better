@@ -1,3 +1,5 @@
+package com.hl.up;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,7 +44,7 @@ import java.util.Map;
  * <p>
  * ----------------------
  */
-public class 数组大小减半 {
+public class 数组大小减半_2 {
     static class Solution {
         public int minSetSize(int[] arr) {
             int halfOfLength = arr.length / 2;
@@ -73,15 +75,7 @@ public class 数组大小减半 {
     }
 
     public static void main(String[] args) {
-        //思路:获取数组大小,除以2,知道最少要删除多少
-        //找出重复较多的元素,相加>数组大小1/2即可
-
-        //tip:需要考虑特殊情况,可以快速返回的;例如某一个元素的个数在统计过程中已经大于数组大小1/2了,就可以停止统计了.
-        //统计时实时计算,当前需要的最小元素数,最终返回;--统计一半以后开始
-        //从左边统计和从右边统计,根据数据特征,速度会不一样
-        //做多是数组1/2个元素
-
-        //方法1,统计每一个元素出现的次数,从大到小排序
+        //解法2,空间换时间
         //
         Solution solution = new Solution();
         solution.minSetSize(new int[]{3, 3, 3, 3, 5, 5, 5, 2, 2, 7});
